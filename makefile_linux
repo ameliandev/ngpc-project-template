@@ -1,8 +1,9 @@
 .SUFFIXES: .c .asm .rel .abs
-NAME = bastardsnw
+NAME = main
 OBJS = \
-	bastardsnw.rel \
+	main.rel \
 	library.rel \
+	core/rom/flash.rel \
 	# core/class/global.rel \
 	# core/class/pallete.rel \
 	# core/utils/screen.rel \
