@@ -1,0 +1,17 @@
+memory
+{
+	io(RW)	: org=0x000000, len=0x000100
+	ram(RW)	: org=0x004000, len=0x002C00
+	rom(RX)	: org=0x200000, len=0x200000
+}
+
+sections
+{
+	far_area	org=0x004000								: {*(f_area)}
+	far_startup	org=0x200000								: {*(f_header)}
+	far_const	org=org(far_startup)+sizeof(far_startup)		: {*(f_const)}
+	far_code	org=org(far_const)+sizeof(far_const)	: {*(f_code)}
+	far_data	org=org(far_code)+sizeof(far_code)
+				addr=org(far_area)+sizeof(far_area)			: {*(f_data)}
+	__DataRAM = addr(far_data);
+}

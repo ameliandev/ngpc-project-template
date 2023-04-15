@@ -1,0 +1,7 @@
+# Exclusiones
+*.rel
+*.map
+*.abs
+*.s24
+*.json
+*.code-snippets
