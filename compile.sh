@@ -1,18 +1,14 @@
 #!/bin/bash
 
-# ATTENTION!!!
-# Replace the username in the paths.
-# Replace the romName var as the same of your project name
-
 # vars declaration
-corePath='/home/[user]/snap/retroarch/current/.config/retroarch/cores'
+corePath='/home/adrian/snap/retroarch/current/.config/retroarch/cores'
 compileSuccess=1
 error=0
 emu_neopop='race_libretro.so'
 emu_mednafe='mednafen_ngp_libretro.so'
-romName='mygame'
+romName='main'
 romNameOut=$romName'.ngc'
-compilerPath=/home/[user]/ngpcbins/T900
+compilerPath=/home/adrian/ngpcbins/T900
 
 # Environment paths & vars
 if [[ ! $PATH =~ ^$compilerPath ]]; then
