@@ -5,10 +5,9 @@ OBJS = \
 	library.rel \
 	core/rom/flash.rel \
 	
-CURRENT_DIR := $(abspath .)
-OUTPUT_DIR = bin
+OUTPUT_DIR=bin
 
-$(NAME).ngc: makefile ngpc.lcf $(OBJS)
+$(NAME)OUTPUT.ngc: makefile ngpc.lcf $(OBJS)
 	wine $(THOME)/BIN/tulink.exe -la -o $(NAME).abs ngpc.lcf system.lib $(OBJS)
 	wine $(THOME)/BIN/tuconv.exe -Fs24 $(NAME).abs
 	wine $(THOME)/BIN/s242ngp.exe $(NAME).s24
@@ -17,12 +16,12 @@ $(NAME).ngc: makefile ngpc.lcf $(OBJS)
 	wine $(THOME)/BIN/cc900.exe -c -O3 $< -o $@
 
 clean:
-	@rm -f $(OUTPUT_DIR)/*.abs 
+	@find . -name "*.rel" | xargs rm
+	@rm -f $(OUTPUT_DIR)/*.abs
 	@rm -f $(OUTPUT_DIR)/*.map
 	@rm -f $(OUTPUT_DIR)/*.s24
 	@rm -f $(OUTPUT_DIR)/*.ngc
 	@rm -f $(OUTPUT_DIR)/*.ngp
-	@rm -rf *.rel
 
 move_files:
 	@if [ ! -d "$(OUTPUT_DIR)" ]; then mkdir $(OUTPUT_DIR); fi
@@ -30,3 +29,4 @@ move_files:
 	@if [ -f "$(NAME).abs" ]; then mv $(NAME).abs $(OUTPUT_DIR)/$(NAME).abs; fi
 	@if [ -f "$(NAME).rel" ]; then mv $(NAME).rel $(OUTPUT_DIR)/$(NAME).rel; fi
 	@if [ -f "$(NAME).s24" ]; then mv $(NAME).s24 $(OUTPUT_DIR)/$(NAME).s24; fi
+	@if [ -f "$(NAME).map" ]; then mv $(NAME).map $(OUTPUT_DIR)/$(NAME).map; fi
