@@ -14,6 +14,8 @@ REM (1==true, 0==false) Run allows to run the compiled rom through the establish
 SET Run=1
 REM The ngc file name. If you want to change the cartridge rom name, change it on CartTitle var into carthdr.h file.
 SET romName=main
+REM Your ngpcbins\T900 compiler folder. By default
+SET compilerPath=C:\ngpcbins\T900
 REM Emulator path. If you put Run const equals 1, this var value must exists
 SET emuPath="%NGPEMU%\NeoPop\NeoPop-Win32.exe"
 @REM SET emuPath="%NGPEMU%\BizHawk-2.2.1\EmuHawk.exe"
@@ -24,8 +26,7 @@ REM *****************************************************
 REM *                 COMPILER CONST                    *
 REM *****************************************************
 
-REM THOME must be the location of your ngpcbins\T900 compiler folder. By default C:\ngpcbins\T900
-SET THOME=C:\ngpcbins\T900
+SET THOME=%compilerPath%
 SET BinPath=bin
 SET rootPath=%~dp0
 
@@ -36,9 +37,9 @@ REM *****************************************************
 
 path=%path%;%THOME%\bin
 
-make winclean
+make clean
 make
-make winmove_files
+make move_files
 
 if "%ResizeRom%"=="1" (
     MOVE "%~dp0%BinPath%\%romName%.ngc" "%~dp0%BinPath%\_%romName%.ngc" > nul
