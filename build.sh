@@ -12,6 +12,7 @@ ResizeRom=1
 Run=0
 # The ngc file name. If you want to change the cartridge rom name, change it on CartTitle var into carthdr.h file.
 romName='main'
+compilerPath=/home/[username]/ngpcbins/T900
 
 # *****************************************************
 # *                 EMULATOR CONST                    *
@@ -27,7 +28,7 @@ romName='main'
 # *                 COMPILER CONST                    *
 # *****************************************************
 romNameOut=$romName'.ngc'
-compilerPath=/home/[username]/ngpcbins/T900
+
 
 # Environment paths & vars
 if [[ ! $PATH =~ ^$compilerPath ]]; then

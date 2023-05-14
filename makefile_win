@@ -30,3 +30,4 @@ move_files:
 	@if [ -f "$(NAME).abs" ]; then mv $(NAME).abs $(OUTPUT_DIR)/$(NAME).abs; fi
 	@if [ -f "$(NAME).rel" ]; then mv $(NAME).rel $(OUTPUT_DIR)/$(NAME).rel; fi
 	@if [ -f "$(NAME).s24" ]; then mv $(NAME).s24 $(OUTPUT_DIR)/$(NAME).s24; fi
+	@if [ -f "$(NAME).map" ]; then mv $(NAME).map $(OUTPUT_DIR)/$(NAME).map; fi

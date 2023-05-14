@@ -1,73 +1,62 @@
-### COMPILATION ON WINDOWS
+## DESCRIPTION
 
-- Extract install\ngpcbins_x86_x64.zip for Windows 7 or later, or install\ngpcbins_winXP.zip for Windows XP, to C:\ngpcbins\
-- Install [cygwin](https://www.cygwin.com/install.html) in C:\cygwin64. During the installation process, in the package selection step, search for the package 'make' and install it, as it is required.
-- If you want to run the ROM on an emulator after compilation, edit line 9 of the **compile.bat** file.
-- In VSCode, open the project and execute the compile.bat file.
+A base template for developing software and games for SNK's handheld console, Neo Geo Pocket and Neo Geo Pocket Color.
 
-### COMPILATION ON LINUX
+In addition, this template has been created to develop your games/homebrew for this console, as it offers a quick access to the compilation and execution elements.
 
-It is possible to compile on Linux using **Wine** and the T900 chip compilers from Windows. Follow these steps:
+It has:
 
-- Extract install/ngpcbins_x86_x64.zip to a convenient location, for example /home/[user]/ngpcbins
-- Check that the directory /T900/BIN exists within this directory, with the common .exe and .dll files of the compiler.
-- Rename the makefile for the Linux operating system, i.e., rename makefile_linux to makefile
+- Compatible compiler for Windows and GNU/Linux.
+- Resized to 2Mb roms (to be compatible with flash cartridges)
+- Includes the 0.4 framework developed by Ivan Mackintosh in 2003 that facilitates a lot the development with this console, which contains methods to show elements on screen, audio, controls, etc.
+- New methods in core directory to save/load games.
 
-```bash
-mv makefile makefile_old #if you already have one, rename it as _old
-mv makeflie_linux makefile
-```
+## REQUIREMENTS
 
-- Configure some vars like userName and romname in compile.sh
+#### Windows
 
-- You can (if you want, it's not necessary) include the necessary environment variables in your system. To do so, execute the following lines in the console or add them at the **end of your ~/.bashrc file**. If you don't include them, the compiler.sh file for compiling on Linux includes them in case they don't exist.
+- Install [cygwin](https://www.cygwin.com/install.html) in a convenient path such as C:\cygwin64. In the installation process, in the **packages** section, **make sure to install the make package**. To do this, in the package finder (top left), select View: Full and in Search: type make. A fairly extensive list will appear, but you should only select the one where the package name says make and its description will say something like **'The GNU version of the 'make' utility'**.
 
-```bash
-export PATH=$PATH:/home/[user]/ngpcbins/T900/BIN/
-export THOME=/home/[user]/ngpcbins/T900/
-```
+#### GNU/Linux
 
-- Please verify that the current makefile file contains the execution of commands with .exe files, using Wine with the $THOME path, for example:
+- In order to compile, you must install the [wine](https://packages.ubuntu.com/search?keywords=wine) package on your GNU/Linux OS.
 
-```make
-$(NAME).ngc: makefile ngpc.lcf $(OBJS)
-	wine $(THOME)/BIN/tulink.exe -la -o $(NAME).abs ngpc.lcf system.lib $(OBJS)
-	wine $(THOME)/BIN/tuconv.exe -Fs24 $(NAME).abs
-	wine $(THOME)/BIN/s242ngp.exe $(NAME).s24
+#### Optional
 
-.c.rel:
-	wine $(THOME)/BIN/cc900.exe -c -O3 $< -o $@
-```
+- **Python**. If you want to increase the rom size by 2Mb if it does not exceed it to test it on your flash cartridge, enable the ResizeRom property in your build file. This process will run a python script, so you must have python installed on your computer. This template has been tested with _python 3.11.1_
 
-- Now run the following commands in the terminal, within the project directory:
+## INSTALLATION
 
-```bash
-bash compile.sh
-```
+On both Windows and Linux, the first thing you must do is to install the compiler for the Toshiba T900 chip. For them you must download the zip file that I link you here according to your operating system and unzip in a path that is easily accessible. On Windows you can use something like **C:/ngpcbins** and on GNU/Linux something like /**home/[user]/ngpcbins**.
 
-### USAGE OF COLORS IN NGPC
+- [Compiler for Windows](https://www.dropbox.com/s/iel2jd4gg50zm7b/ngpcbins.zip?dl=0)
+- [GNU/Linux compiler](https://www.dropbox.com/s/ky3w4e8ltc7zb16/ngpcbins.tar.gz?dl=0)
 
-There is a maximum of 3 colors per Tile. The 4th color is represented as 0, and the framework does not evaluate it, treating it as direct transparency.
+## COMPILATION
 
-#### FORMATO
+Before you start you must **set your base makefile**. Currently there are 2 makefile files (_*makefile_win, makefile_linux*_). Depending on the operating system you are going to work with, edit the name of one of them and **leave its name as makefile**, e.g. if you are going to work on windows, rename makefile_win to makefile.
 
-```
-0x0000 = 0x[SUFFIX]
-```
+### Windows
 
-##### SUFFIX
+To compile on Windows, first edit the **build.bat** file, specifically the OPTIONAL CONSTANTS section.
 
-Each value of the suffix represents two cells, resulting in 8 pixels for 4 suffix values multiplied by 2. Each position represents an odd or even value, depending on the sum of the cells it represents, resulting in a different value.
+- ResizeRom: Indicates if the rom should be resized to 2Mb if it does not exceed it.
+- Run: Once compiled the game, it executes it in the emulator that you have configured.
+- romName: Name of the final file, by default 'main'. If you want to rename the game title in the cartridge header, its name must also be edited in the file _carthdr.h_, **variable CartTitle**.
+- compilerPath: Directory where the **compiler binaries of the Toshiba T900 chip are located**, by default C:\ngpcbinsT900
+- emuPath: Absolute path to the .exe file of the **emulator** that will run the game once compiled.
 
-```
-Color 1 = Odd 4, Even 1
-Color 2 = Odd 8, Even 2
-Color 3 = Odd c, Even 3
-```
+Once you have edited these constants, access through console to the address of this template and execute build.bat
 
-#### EXPLANATION
+### GNU/Linux
 
-- 1st digit = Cells 1 and 2
-- 2nd digit = Cells 3 and 4
-- 3rd digit = Cells 5 and 6
-- 4th digit = Cells 7 and 8
+To compile in GNU/Linux, first edit the **build.sh** file, specifically the OPTIONAL CONSTANTS section
+
+- ResizeRom: Indicates if the rom should be resized to 2Mb if it does not exceed it. Edit line 45 of your build.sh and replace the name of your python executable with the current one (_resizeCmd="**py** ./utils/NGPRomResize.py ./bin/$romNameOut"_).
+- Run: Once the game is compiled, it executes it in the emulator that you have configured.
+- romName: Name of the final file, by default 'main'. If you want to rename the game title in the cartridge header, its name must also be edited in the file _./carthdr.h_, **variable CartTitle**.
+- compilerPath: Directory where the **compiler binaries of the Toshiba T900 chip are located**, by default /home/[user]/ngpcbins
+
+#### RUN WITH EMULATOR
+
+As in Windows, in GNU/Linux it is possible to execute the rom once compiled, but in this case it differs from Windows, since here the execution by commands varies according to the emulator and the configuration of the system, reason why it is something that you will have to prepare yourself. To do this, edit line 52 of build.sh. Currently it is prepared to run retroArch in particular with the mednafen emulator.
