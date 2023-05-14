@@ -3,5 +3,6 @@
 *.map
 *.abs
 *.s24
+*.ngc
 *.json
 *.code-snippets

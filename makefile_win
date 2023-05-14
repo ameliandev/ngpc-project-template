@@ -5,7 +5,6 @@ OBJS = \
 	library.rel \
 	core/rom/flash.rel \
 
-CURRENT_DIR := $(abspath .)
 OUTPUT_DIR = bin
 
 $(NAME).ngp: makefile ngpc.lcf $(OBJS)
@@ -22,6 +21,7 @@ clean:
 	@rm -f $(OUTPUT_DIR)/*.s24
 	@rm -f $(OUTPUT_DIR)/*.ngc
 	@rm -f $(OUTPUT_DIR)/*.ngp
+	@rm -f $(OUTPUT_DIR)/*.map
 	@rm -rf *.rel
 
 move_files:
