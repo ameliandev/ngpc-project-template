@@ -1,6 +1,6 @@
 ## DESCRIPTION
 
-<span style="text-align:center;"><img title="" src="http://neogeopocket.es/wp-content/uploads/ngpc-template.png" alt="" data-align="center"></span>
+<span style="text-align:center;"><img title="" src="http://neogeopocket.es/wp-content/uploads/ngpc-template.png" alt="" data-align="center" style="width: 60%;"></span>
 
 A base template for developing software and games for SNK's handheld console, Neo Geo Pocket and Neo Geo Pocket Color.
 
