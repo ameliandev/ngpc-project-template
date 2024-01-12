@@ -17,7 +17,13 @@ It has:
 
 #### Windows
 
-- Install [cygwin](https://www.cygwin.com/install.html) in a convenient path such as C:\cygwin64. In the installation process, in the **packages** section, **make sure to install the make package**. To do this, in the package finder (top left), select View: Full and in Search: type make. A fairly extensive list will appear, but you should only select the one where the package name says make and its description will say something like **'The GNU version of the 'make' utility'**.
+- Open a new PowerShell command prompt and run the next command:
+
+```bash
+winget install GnuWin32.Make
+```
+
+- Once you had installed it, modify the environmnet var named PATH and add C:\Program Files (x86)\GnuWin32\bin to it.
 
 #### GNU/Linux
 
