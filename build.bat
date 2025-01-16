@@ -41,13 +41,13 @@ make clean
 make
 make move_files
 
-if "%ResizeRom%"=="1" (
-    MOVE "%~dp0%BinPath%\%romName%.ngc" "%~dp0%BinPath%\_%romName%.ngc" > nul
-    "%~dp0utils\NGPRomResize.exe" "%~dp0%BinPath%\_%romName%.ngc" > nul
-    MOVE "%~dp0%BinPath%\_%romName%.ngc" "%~dp0%BinPath%\%romName%.ngc" > nul
-    DEL "%~dp0%BinPath%\2MB__%romName%.ngc" > nul
-)
+@REM if "%ResizeRom%"=="1" (
+@REM     MOVE "%~dp0%BinPath%\%romName%.ngc" "%~dp0%BinPath%\_%romName%.ngc" > nul
+@REM     "%~dp0utils\NGPRomResize.exe" "%~dp0%BinPath%\_%romName%.ngc" > nul
+@REM     MOVE "%~dp0%BinPath%\_%romName%.ngc" "%~dp0%BinPath%\%romName%.ngc" > nul
+@REM     DEL "%~dp0%BinPath%\2MB__%romName%.ngc" > nul
+@REM )
 
-if "%Run%"=="1" (
-    %emuPath% %rootPath:~0,-1%.\%BinPath%\%romName%.ngc
-)
+@REM if "%Run%"=="1" (
+@REM     %emuPath% %rootPath:~0,-1%.\%BinPath%\%romName%.ngc
+@REM )
